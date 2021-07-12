@@ -71,7 +71,7 @@ def load_data(args):
 	train_data, validation_data, test_data, entity2id, relation2id, headTailSelector, unique_entities_train = build_data(args.data, is_unweigted=False, directed=True)
 
 	if args.pretrained_emb:
-		entity_embeddings, relation_embeddings = init_embeddings(os.path.join(args.data, 'entity2vec.txt'), os.path.join(args.data, 'relation2vec.txt'))
+		entity_embeddings, relation_embeddings = init_embeddings(os.path.join(args.data, 'entity2vec100.init'), os.path.join(args.data, 'relation2vec100.init'))
 		print("Initialised relations and entities from TransE")
 	else:
 		entity_embeddings	= np.random.randn(len(entity2id), args.embedding_size)
@@ -149,9 +149,7 @@ def train_gat(args):
 	scheduler	= torch.optim.lr_scheduler.StepLR(optimizer, step_size=500, gamma=0.5, last_epoch=-1)
 	gat_loss_func	= nn.MarginRankingLoss(margin=args.margin)
 
-	current_batch_2hop_indices = torch.LongTensor([])
-	if(args.use_2hop):
-		current_batch_2hop_indices = Corpus_.get_batch_nhop_neighbors_all(args, Corpus_.unique_entities_train, node_neighbors_2hop)
+	current_batch_2hop_indices = Corpus_.get_batch_nhop_neighbors_all(args, Corpus_.unique_entities_train, node_neighbors_2hop)
 
 	if CUDA: 	current_batch_2hop_indices = Variable(torch.LongTensor(current_batch_2hop_indices)).cuda()
 	else: 		current_batch_2hop_indices = Variable(torch.LongTensor(current_batch_2hop_indices))

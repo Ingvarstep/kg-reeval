@@ -1,4 +1,5 @@
 #!/bin/bash
+cd /content/kg-reeval-master/KBAT
 mkdir checkpoints
 
 mkdir checkpoints/wn
@@ -9,6 +10,7 @@ mkdir checkpoints/nell
 
 mkdir checkpoints/wn/out
 mkdir checkpoints/fb/out
+mkdir checkpoints/fb/out2
 mkdir checkpoints/kinship/out
 mkdir checkpoints/umls/out
 mkdir checkpoints/nell/out

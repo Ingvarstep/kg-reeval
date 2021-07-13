@@ -199,15 +199,16 @@ def train_gat(args):
 
 			end_time_iter = time.time()
 
-			print("Iteration-> {0}  , Iteration_time-> {1:.4f} , Iteration_loss {2:.4f}".format(
-				iters, end_time_iter - start_time_iter, loss.data.item()))
+			# print("Iteration-> {0}  , Iteration_time-> {1:.4f} , Iteration_loss {2:.4f}".format(
+			# 	iters, end_time_iter - start_time_iter, loss.data.item()))
 
 		# scheduler.step()
-		print("Epoch {} , average loss {} , epoch_time {}".format(
-			epoch, sum(epoch_loss) / len(epoch_loss), time.time() - start_time))
+    if epoch%10 == 0:
+        save_model(model_gat, args.data, epoch, args.output_folder)
+		    print("Epoch {} , average loss {} , epoch_time {}".format(
+			    epoch, sum(epoch_loss) / len(epoch_loss), time.time() - start_time))
 		epoch_losses.append(sum(epoch_loss) / len(epoch_loss))
 
-		save_model(model_gat, args.data, epoch, args.output_folder)
 	save_model(model_gat, args.data, epoch, args.output_folder)
 
 
@@ -278,14 +279,13 @@ def train_conv(args):
 
 			end_time_iter = time.time()
 
-			print("Iteration-> {0}  , Iteration_time-> {1:.4f} , Iteration_loss {2:.4f}".format(iters, end_time_iter - start_time_iter, loss.data.item()))
+			# print("Iteration-> {0}  , Iteration_time-> {1:.4f} , Iteration_loss {2:.4f}".format(iters, end_time_iter - start_time_iter, loss.data.item()))
 
 		# scheduler.step()
-		print("Epoch {} , average loss {} , epoch_time {}".format(epoch, sum(epoch_loss) / len(epoch_loss), time.time() - start_time))
+    if epoch%10 = 0:
+        save_model(model_conv, args.data, epoch, args.output_folder + "conv/")
+		    print("Epoch {} , average loss {} , epoch_time {}".format(epoch, sum(epoch_loss) / len(epoch_loss), time.time() - start_time))
 		epoch_losses.append(sum(epoch_loss) / len(epoch_loss))
-
-		save_model(model_conv, args.data, epoch, args.output_folder + "conv/")
-
 
 def evaluate_conv(args, unique_entities, eval_type):
 	model_conv = SpKBGATConvOnly(entity_embeddings, relation_embeddings, args.entity_out_dim, args.entity_out_dim,

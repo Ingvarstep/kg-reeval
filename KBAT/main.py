@@ -203,9 +203,9 @@ def train_gat(args):
 			# 	iters, end_time_iter - start_time_iter, loss.data.item()))
 
 		# scheduler.step()
-    if epoch%10 == 0:
-        save_model(model_gat, args.data, epoch, args.output_folder)
-		    print("Epoch {} , average loss {} , epoch_time {}".format(
+		if epoch%10 == 0:
+			save_model(model_gat, args.data, epoch, args.output_folder)
+			print("Epoch {} , average loss {} , epoch_time {}".format(
 			    epoch, sum(epoch_loss) / len(epoch_loss), time.time() - start_time))
 		epoch_losses.append(sum(epoch_loss) / len(epoch_loss))
 
@@ -282,9 +282,9 @@ def train_conv(args):
 			# print("Iteration-> {0}  , Iteration_time-> {1:.4f} , Iteration_loss {2:.4f}".format(iters, end_time_iter - start_time_iter, loss.data.item()))
 
 		# scheduler.step()
-    if epoch%10 = 0:
-        save_model(model_conv, args.data, epoch, args.output_folder + "conv/")
-		    print("Epoch {} , average loss {} , epoch_time {}".format(epoch, sum(epoch_loss) / len(epoch_loss), time.time() - start_time))
+		if epoch%10 = 0:
+			save_model(model_conv, args.data, epoch, args.output_folder + "conv/")
+			print("Epoch {} , average loss {} , epoch_time {}".format(epoch, sum(epoch_loss) / len(epoch_loss), time.time() - start_time))
 		epoch_losses.append(sum(epoch_loss) / len(epoch_loss))
 
 def evaluate_conv(args, unique_entities, eval_type):
